@@ -1,45 +1,45 @@
 
-# Claude Code（非官方原始碼提取）
+# Claude Code (Unofficial Source Extraction)
 
-追蹤我：https://x.com/paidev
+Follow me at https://x.com/paidev
 
 
 
-> **這不是 Anthropic 的官方儲存庫。**
+> **This is NOT an official Anthropic repository.**
 
-本儲存庫包含從 [Anthropic 的 Claude Code](https://www.anthropic.com/) CLI 工具中提取的 TypeScript 原始碼。Claude Code 是 Anthropic 官方推出的命令列介面工具，讓您可以直接在終端機中與 Claude 互動，執行軟體工程任務，例如編輯檔案、執行指令、搜尋程式碼庫、管理 Git 工作流程等。
+This repository contains the extracted TypeScript source code of [Anthropic's Claude Code](https://www.anthropic.com/) CLI tool — Anthropic's official CLI that lets you interact with Claude directly from the terminal to perform software engineering tasks like editing files, running commands, searching codebases, managing git workflows, and more.
 
-原始碼是透過解包官方發佈的 npm 套件中附帶的 source map（`cli.js.map`）所取得。
+The source was obtained by unpacking the source map (`cli.js.map`) bundled with the officially published npm package.
 
-- **npm 套件：** [@anthropic-ai/claude-code v2.1.88](https://www.npmjs.com/package/@anthropic-ai/claude-code/v/2.1.88)
-- **官方首頁：** [github.com/anthropics/claude-code](https://github.com/anthropics/claude-code)
+- **npm package:** [@anthropic-ai/claude-code v2.1.88](https://www.npmjs.com/package/@anthropic-ai/claude-code/v/2.1.88)
+- **Official homepage:** [github.com/anthropics/claude-code](https://github.com/anthropics/claude-code)
 
-## 如何洩露的
+## How It Leaked
 
-原始碼洩露由 [Chaofan Shou (@Fried_rice)](https://x.com/Fried_rice) 發現，並於 2026 年 3 月 31 日公開發佈：
+The source code leak was discovered by [Chaofan Shou (@Fried_rice)](https://x.com/Fried_rice) and posted publicly on March 31, 2026:
 
-> *「Claude Code 的原始碼透過 npm registry 中的 map 檔案洩露了！」*
+> *"Claude code source code has been leaked via a map file in their npm registry!"*
 >
-> — [@Fried_rice](https://x.com/Fried_rice)，2026 年 3 月 31 日
+> — [@Fried_rice](https://x.com/Fried_rice), March 31, 2026
 
-已發佈的 npm 套件（`@anthropic-ai/claude-code`）包含了一個 source map 檔案（`cli.js.map`），其中含有完整且未經混淆的 TypeScript 原始碼。該 source map 的 `sourcesContent` 欄位保存了所有被打包進 `cli.js` 的原始 `.ts`/`.tsx` 檔案，使得整個程式碼庫可以輕易地被提取出來。
+The published npm package (`@anthropic-ai/claude-code`) included a source map file (`cli.js.map`) containing the full, unobfuscated TypeScript source code. The `sourcesContent` field of the source map held every original `.ts`/`.tsx` file that was bundled into `cli.js`, making the entire codebase trivially extractable.
 
-## 為什麼會有這個儲存庫？
+## Why does this exist?
 
-Anthropic 將 Claude Code 以打包後的 JavaScript CLI 形式發佈在 npm 上。發佈的套件中包含一個 source map 檔案（`cli.js.map`），其中包含原始的 TypeScript 原始碼。本儲存庫僅僅是提取並保存這些原始碼，以便於閱讀和參考。
+Anthropic publishes Claude Code as a bundled JavaScript CLI on npm. The published package includes a source map file (`cli.js.map`) that contains the original TypeScript source. This repository simply extracts and preserves that source for easier reading and reference.
 
-## 如何自行取得
+## How to get it yourself
 
-### 複製本儲存庫
+### Clone this repository
 
 ```bash
 git clone git@github.com:chatgptprojects/claude-code.git
 cd claude-code
 ```
 
-### 或從 npm 自行提取
+### Or extract it yourself from npm
 
-1. **安裝套件：**
+1. **Install the package:**
 
 ```bash
 mkdir claude-code-extract && cd claude-code-extract
@@ -48,9 +48,9 @@ tar -xzf anthropic-ai-claude-code-2.1.88.tgz
 cd package
 ```
 
-2. **執行解包腳本：**
+2. **Run the unpack script:**
 
-建立一個名為 `unpack.mjs` 的檔案：
+Create a file called `unpack.mjs`:
 
 ```js
 import { readFileSync, writeFileSync, mkdirSync } from "fs";
@@ -89,40 +89,40 @@ console.log(`Done! Wrote ${written} files to ${outDir}`);
 if (skipped > 0) console.log(`Skipped ${skipped} files with no content.`);
 ```
 
-3. **執行腳本：**
+3. **Run it:**
 
 ```bash
 node unpack.mjs
 ```
 
-提取出的原始碼將位於 `unpacked/` 目錄中。
+The extracted source will be in the `unpacked/` directory.
 
-## 專案結構
+## Project Structure
 
 ```
 src/
-├── cli/           # CLI 進入點與參數解析
-├── commands/      # 指令實作
-├── components/    # UI 元件（Ink/React）
-├── constants/     # 應用程式常數與設定
-├── context/       # 上下文管理
-├── hooks/         # React Hooks
-├── ink/           # 終端機 UI（Ink 框架）
-├── services/      # 核心服務
-├── skills/        # 技能定義
-├── tools/         # 工具實作（檔案編輯、搜尋等）
-├── types/         # TypeScript 型別定義
-├── utils/         # 工具函式
-├── main.tsx       # 主應用程式進入點
-├── query.ts       # 查詢處理
+├── cli/           # CLI entrypoint and argument parsing
+├── commands/      # Command implementations
+├── components/    # UI components (Ink/React)
+├── constants/     # App constants and configuration
+├── context/       # Context management
+├── hooks/         # React hooks
+├── ink/           # Terminal UI (Ink framework)
+├── services/      # Core services
+├── skills/        # Skill definitions
+├── tools/         # Tool implementations (file editing, search, etc.)
+├── types/         # TypeScript type definitions
+├── utils/         # Utility functions
+├── main.tsx       # Main application entry
+├── query.ts       # Query handling
 └── ...
 ```
 
-## 免責聲明
+## Disclaimer
 
-本儲存庫中的所有程式碼皆為 [Anthropic](https://www.anthropic.com/) 的智慧財產權。本儲存庫僅供**教育與參考用途**。有關使用限制，請參閱 Anthropic 的[授權條款](https://www.npmjs.com/package/@anthropic-ai/claude-code/v/2.1.88)。
-
-## Star 歷史
+All code in this repository is the intellectual property of [Anthropic](https://www.anthropic.com/). This repository is provided for **educational and reference purposes only**. Please refer to Anthropic's [license terms](https://www.npmjs.com/package/@anthropic-ai/claude-code/v/2.1.88) for usage restrictions.
+ 
+## Star History
 
 <a href="https://www.star-history.com/?repos=chatgptprojects%2Fclaude-code&type=date&legend=top-left">
  <picture>
@@ -132,4 +132,4 @@ src/
  </picture>
 </a>
 
-本儲存庫與 Anthropic **無任何關聯、背書或支持關係**。
+This is **not** affiliated with, endorsed by, or supported by Anthropic.
